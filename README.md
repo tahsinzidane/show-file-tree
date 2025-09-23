@@ -47,6 +47,7 @@ project-folder
 * Pretty tree-style formatting
 * Works on Windows, macOS, and Linux
 * Lightweight and fast
+* Ignore node_module
 
 ## Author
 
