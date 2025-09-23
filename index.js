@@ -2,8 +2,12 @@
 const fs = require('fs');
 const path = require('path');
 
+// List of folders to ignore
+const ignore = ['node_modules', '.git'];
+
 function printTree(dir, prefix = '') {
-  const items = fs.readdirSync(dir);
+  const items = fs.readdirSync(dir).filter(item => !ignore.includes(item));
+
   items.forEach((item, index) => {
     const fullPath = path.join(dir, item);
     const isLast = index === items.length - 1;
