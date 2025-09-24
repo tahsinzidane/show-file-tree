@@ -1,6 +1,6 @@
 {
   "name": "@tahsinzidane/sft",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A simple Node.js CLI tool that prints the full file tree of a directory in your terminal",
   "main": "index.js",
   "scripts": {

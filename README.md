@@ -45,9 +45,10 @@ project-folder
 
 * Recursive directory traversal
 * Pretty tree-style formatting
+* Ignore node_module
 * Works on Windows, macOS, and Linux
 * Lightweight and fast
-* Ignore node_module
+* Depth limit
 
 ## Author
 
