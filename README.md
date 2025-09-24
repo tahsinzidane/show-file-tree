@@ -10,21 +10,39 @@ Install globally via npm:
 npm install -g @tahsinzidane/sft
 ````
 
+
+
 ## Usage
 
-Print the file tree of the current directory:
+**Print the file tree of the current directory:**
 
 ```bash
 sft
 ```
 
-Print the file tree of a specific directory:
+**Print the file tree with file info (size + last modified date):**
+
+```bash
+sft -i
+# or
+sft --info
+```
+
+**Limit file exploring depth:**
+
+```bash
+sft -d 2
+# or
+sft --depth 2
+```
+
+**Print the file tree of a specific directory:**
 
 ```bash
 sft path/to/directory
 ```
 
-Example:
+**Example:**
 
 ```bash
 sft C:\Users\tahsinzidane\projects
@@ -49,6 +67,9 @@ project-folder
 * Works on Windows, macOS, and Linux
 * Lightweight and fast
 * Depth limit
+* File info
+
+
 
 ## Author
 

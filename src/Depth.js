@@ -1,10 +1,10 @@
 const fs = require("fs");
 const path = require("path");
+const getFileInfo = require("./FileInfo");
 
-// List of folders to ignore
 const ignore = ["node_modules", ".git"];
 
-function printTreeWithDepth(dir, maxDepth, currentDepth = 0, prefix = "") {
+function printTreeWithDepth(dir, maxDepth, showInfo = false, currentDepth = 0, prefix = "") {
   if (currentDepth >= maxDepth) return;
 
   const items = fs.readdirSync(dir).filter(item => !ignore.includes(item));
@@ -13,12 +13,16 @@ function printTreeWithDepth(dir, maxDepth, currentDepth = 0, prefix = "") {
     const isLast = index === items.length - 1;
     const connector = isLast ? "└── " : "├── ";
 
-    console.log(prefix + connector + item);
+    let line = prefix + connector + item;
+    if (showInfo) line += " " + getFileInfo(fullPath);
+
+    console.log(line);
 
     if (fs.statSync(fullPath).isDirectory()) {
       printTreeWithDepth(
         fullPath,
         maxDepth,
+        showInfo,
         currentDepth + 1,
         prefix + (isLast ? "    " : "│   ")
       );
