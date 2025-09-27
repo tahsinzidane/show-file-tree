@@ -7,7 +7,16 @@ const getFileInfo = require("./src/FileInfo");
 const ignore = ["node_modules", ".git"];
 
 function printTree(dir, prefix = "", showInfo = false) {
-  const items = fs.readdirSync(dir).filter(item => !ignore.includes(item));
+  let items;
+  try {
+    items = fs.readdirSync(dir, { withFileTypes: true })
+      .map(entry => entry.name)
+      .filter(item => !ignore.includes(item));
+  } catch (error) {
+    console.warn("Skipping:", dir, error.code);
+    return;
+  }
+
   items.forEach((item, index) => {
     const fullPath = path.join(dir, item);
     const isLast = index === items.length - 1;
@@ -18,8 +27,12 @@ function printTree(dir, prefix = "", showInfo = false) {
 
     console.log(line);
 
-    if (fs.statSync(fullPath).isDirectory()) {
-      printTree(fullPath, prefix + (isLast ? "    " : "│   "), showInfo);
+    try {
+      if (fs.statSync(fullPath).isDirectory()) {
+        printTree(fullPath, prefix + (isLast ? "    " : "│   "), showInfo);
+      }
+    } catch (error) {
+      console.warn("Skipping:", fullPath, error.code);
     }
   });
 }
@@ -34,7 +47,6 @@ console.log("📂 " + targetDir);
 
 if (depthFlagIndex !== -1 && args[depthFlagIndex + 1]) {
   const depthLimit = parseInt(args[depthFlagIndex + 1], 10);
-  // infoFlag 
   depthTree(targetDir, depthLimit, infoFlag);
 } else {
   printTree(targetDir, "", infoFlag);
